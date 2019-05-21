@@ -1,6 +1,8 @@
 package com.saiftyfirst;
 
-public class Rythms {
+import java.util.List;
+
+public class Rhythm {
 
     public static void TOWER_OF_HANOI(int numOfDiscs, char source, char inter, char to) {
         if (numOfDiscs == 1) {
@@ -35,6 +37,10 @@ public class Rythms {
             }
         }
         return ret;
+    }
+
+    public static List<String> CHEAPEST_MATRIX_MULTIPLICATION() {
+        return null;
     }
 
 }

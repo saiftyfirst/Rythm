@@ -1,11 +1,11 @@
-import com.saiftyfirst.Rythms;
+import com.saiftyfirst.Rhythm;
 import org.junit.Test;
 
-public class RhytmsTests {
+public class RhythmTests {
 
     @Test
     // Check logs for results
     public void towerOfHanoiTest() {
-        Rythms.TOWER_OF_HANOI(3, 'A', 'B', 'C');
+        Rhythm.TOWER_OF_HANOI(3, 'A', 'B', 'C');
     }
 }
