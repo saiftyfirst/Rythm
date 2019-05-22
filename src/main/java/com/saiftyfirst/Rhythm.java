@@ -1,5 +1,6 @@
 package com.saiftyfirst;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Rhythm {
@@ -38,6 +39,20 @@ public class Rhythm {
         }
         return ret;
     }
+
+    public static int MAXIMAL_SUBSET_INDIVISIBLE_BY_K(int[] arr, int k) {
+        int[] moduloArray = new int[k];
+        Arrays.fill(moduloArray, 0);
+        for (int i: arr) {
+            moduloArray[i % k]++;
+        }
+        int ret = moduloArray[0] > 0 ? 1 : 0;
+        for (int i = 1; i <= k/2 ; i++) {
+            ret += Utilities.maximum(moduloArray[i], moduloArray[k-i]);
+        }
+        return ret;
+    }
+
 
     public static List<String> CHEAPEST_MATRIX_MULTIPLICATION() {
         return null;
