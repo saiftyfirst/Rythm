@@ -3,12 +3,10 @@ package com.saiftyfirst;
 import com.saiftyfirst.models.Matrix;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class Rhythm {
 
-    public static void TOWER_OF_HANOI(int numOfDiscs, char source, char inter, char to) {
+    public static void TOWER_OF_HANOI(final int numOfDiscs, final char source, final char inter, final char to) {
         if (numOfDiscs == 1) {
             System.out.println("Move disc 1 from " + source + " to " + to);
             return;
@@ -43,7 +41,7 @@ public class Rhythm {
         return ret;
     }
 
-    public static int MAXIMAL_SUBSET_INDIVISIBLE_BY_K(int[] arr, int k) {
+    public static int MAXIMAL_SUBSET_INDIVISIBLE_BY_K(final int[] arr, final int k) {
         int[] moduloArray = new int[k];
         Arrays.fill(moduloArray, 0);
         for (int i: arr) {
@@ -59,8 +57,7 @@ public class Rhythm {
     /**
      * C[i,j] = Min(i <= k < j) { C[i,k] + C[k+1,j] + d(i-1) + d(k) + d(j)}
      */
-    public static List<String> CHEAPEST_MATRIX_MULTIPLICATION(Matrix[] matrices) {
-        List<String> ret = Collections.emptyList();
+    public static String CHEAPEST_MATRIX_MULTIPLICATION(final Matrix[] matrices) {
         if (Utilities.areMulipliable(matrices)) {
             int lenOfMatrices = matrices.length;
             int[] dimensions = new int[lenOfMatrices + 1];
@@ -68,25 +65,43 @@ public class Rhythm {
             int[][] minKMatrix = new int[lenOfMatrices][lenOfMatrices];
             dimensions[0] = matrices[0].getDimensions().getX();
             for (int i = 0; i < lenOfMatrices; i++) {
-                dimensions[i] = matrices[i].getDimensions().getY();
-                costMatrix[i][i] = 0;
+                dimensions[i+1] = matrices[i].getDimensions().getY();
             }
-            /* [1,2], [2,3], [3,4] --- [1,3], [2,4] --- [1,4]*/
+            int cost;
+            int minCost;
+            int j;
             for (int diff = 1; diff < lenOfMatrices; diff++){
                 for (int i = 0; i + diff < lenOfMatrices; i++) {
-                    /* [1,3] -> {[1,1][2,3]},{[1,2][3,3]}*/
-                    int j = i + diff;
+                    j = i + diff;
+                    minCost = 0;
                     for (int k = i; k < j; k++){
-                        costMatrix[i][j] = costMatrix[i][k] + costMatrix[k+1][j] +
-                                dimensions[i] * dimensions[k+1] * dimensions[j-1];
+                        cost = costMatrix[i][k] + costMatrix[k+1][j] +
+                                dimensions[i] * dimensions[k+1] * dimensions[j+1];
+                        if (cost < minCost || minCost == 0) {
+                            minCost = cost;
+                            costMatrix[i][j] = minCost;
+                            minKMatrix[i][j] = k;
+                        }
                     }
                 }
             }
-
-
-
+            return parenthesisOrderForMCM(0, lenOfMatrices - 1, minKMatrix);
+        } else {
+            return null;
         }
-        return ret;
+    }
+
+    static String parenthesisOrderForMCM(final int i, final int j, final int minKMatrix[][]) {
+        StringBuilder builder = new StringBuilder();
+        if (i == j) {
+            builder.append((char)(i + 65));
+            return builder.toString();
+        }
+        builder.append("(");
+        builder.append(parenthesisOrderForMCM(i, minKMatrix[i][j], minKMatrix));
+        builder.append(parenthesisOrderForMCM(minKMatrix[i][j] + 1, j, minKMatrix));
+        builder.append(")");
+        return builder.toString();
     }
 
 }

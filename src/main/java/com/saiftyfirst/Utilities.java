@@ -9,6 +9,11 @@ public class Utilities {
         else return b;
     }
 
+    public static int minimum(int a, int b) {
+        if (a <= b) return a;
+        else return b;
+    }
+
     public static boolean areMulipliable(Matrix[] matrices) {
         for(int i = 0; i < matrices.length - 1; i++) {
             if (!(matrices[i].getDimensions().getY() == matrices[i+1].getDimensions().getX())) {
