@@ -1,6 +1,9 @@
 package com.saiftyfirst;
 
+import com.saiftyfirst.models.Matrix;
+
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Rhythm {
@@ -53,9 +56,37 @@ public class Rhythm {
         return ret;
     }
 
+    /**
+     * C[i,j] = Min(i <= k < j) { C[i,k] + C[k+1,j] + d(i-1) + d(k) + d(j)}
+     */
+    public static List<String> CHEAPEST_MATRIX_MULTIPLICATION(Matrix[] matrices) {
+        List<String> ret = Collections.emptyList();
+        if (Utilities.areMulipliable(matrices)) {
+            int lenOfMatrices = matrices.length;
+            int[] dimensions = new int[lenOfMatrices + 1];
+            int[][] costMatrix = new int[lenOfMatrices][lenOfMatrices];
+            int[][] minKMatrix = new int[lenOfMatrices][lenOfMatrices];
+            dimensions[0] = matrices[0].getDimensions().getX();
+            for (int i = 0; i < lenOfMatrices; i++) {
+                dimensions[i] = matrices[i].getDimensions().getY();
+                costMatrix[i][i] = 0;
+            }
+            /* [1,2], [2,3], [3,4] --- [1,3], [2,4] --- [1,4]*/
+            for (int diff = 1; diff < lenOfMatrices; diff++){
+                for (int i = 0; i + diff < lenOfMatrices; i++) {
+                    /* [1,3] -> {[1,1][2,3]},{[1,2][3,3]}*/
+                    int j = i + diff;
+                    for (int k = i; k < j; k++){
+                        costMatrix[i][j] = costMatrix[i][k] + costMatrix[k+1][j] +
+                                dimensions[i] * dimensions[k+1] * dimensions[j-1];
+                    }
+                }
+            }
 
-    public static List<String> CHEAPEST_MATRIX_MULTIPLICATION() {
-        return null;
+
+
+        }
+        return ret;
     }
 
 }
