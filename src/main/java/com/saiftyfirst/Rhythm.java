@@ -24,8 +24,17 @@ public class Rhythm {
         char[] charArrayStr1 = str1.toCharArray();
         char[] charArrayStr2 = str2.toCharArray();
 
+        /**
+         * Dummy grid value at [0][0] for ease of indexing in algo
+         */
         int sequenceGrid[][] = new int[lengthStr1 + 1][lengthStr2 + 1];
 
+        /**
+         * Fill a grid of str1.len x str2.len comparing each character at i for str1 and j for str2.
+         * The value for each grid item is grid[i-1][j-1] + 1 in case of char match.
+         * The value is 0 in case of a non-match.
+         * Keeping track of the highest encountered value, gives the longest sequence.
+         */
         for (int i = 0; i < lengthStr1; i++) {
             for (int j = 0; j < lengthStr2; j++) {
                 if (i == 0 || j ==0){
@@ -42,6 +51,13 @@ public class Rhythm {
     }
 
     public static int MAXIMAL_SUBSET_INDIVISIBLE_BY_K(final int[] arr, final int k) {
+        /**
+         * Create an array holding module counts from the set of numbers.
+         * Loop through half the array, picking the number higher between two complements that would result in module
+         * summation of 3.
+         * For example, in case k=7, we pick the higher of ModuloArray[3] or ModuloArray[4] but not both (or we get sum of 7).
+         * Edge scenario: We can always pick one item that is divisible by 7 but not more.
+         */
         int[] moduloArray = new int[k];
         Arrays.fill(moduloArray, 0);
         for (int i: arr) {
@@ -58,6 +74,11 @@ public class Rhythm {
      * C[i,j] = Min(i <= k < j) { C[i,k] + C[k+1,j] + d(i-1) + d(k) + d(j)}
      */
     public static String CHEAPEST_MATRIX_MULTIPLICATION(final Matrix[] matrices) {
+        /**
+         * Maintain a costMatrix of len x len. Store the min value of C[i,j] in corresponding position.
+         * We use a bottom up approach starting at [1,1]/[0,0] depending on indexing used.
+         * Maintain a kMatrix which holds the k for which cost is minimized in corresponding position.
+         */
         if (Utilities.areMulipliable(matrices)) {
             int lenOfMatrices = matrices.length;
             int[] dimensions = new int[lenOfMatrices + 1];
@@ -92,6 +113,9 @@ public class Rhythm {
     }
 
     static String parenthesisOrderForMCM(final int i, final int j, final int minKMatrix[][]) {
+        /**
+         * Recursively find the position of the brackets using the k from the kMatrix.
+         */
         StringBuilder builder = new StringBuilder();
         if (i == j) {
             builder.append((char)(i + 65));
@@ -102,6 +126,56 @@ public class Rhythm {
         builder.append(parenthesisOrderForMCM(minKMatrix[i][j] + 1, j, minKMatrix));
         builder.append(")");
         return builder.toString();
+    }
+
+    public static int[] NEXT_PERMUTATION(int sequence[]) {
+        /**
+         * Key idea is to think of suffixes.
+         * Look at the end of the sequence and determine the longest non-increasing sequence.
+         * Say, start of such a suffix is at index i, then position i-1 is the pivot.
+         * Replace the pivot with the lowest number in sequence bigger than pivot.
+         * Invert the suffix to ensure that the change in sequence is minimized.
+         */
+        int i = sequence.length - 1;
+        while (i >= 0 && sequence[i-1] >= sequence[i]) i--;
+        if (i == 0) return sequence;
+        int j = sequence.length - 1;
+        while (sequence[j] <= sequence[i-1]) j--;
+        int temp = sequence[j];
+        sequence[j] = sequence[i-1];
+        sequence[i-1] = temp;
+        j = sequence.length - 1;
+        while (j > i) {
+            temp = sequence[i];
+            sequence[i++] = sequence[j];
+            sequence[j--] = temp;
+        }
+        return sequence;
+    }
+
+    public static int[] PREV_PERMUTATION(int sequence[]) {
+        /**
+         * Key idea is to think of suffixes.
+         * Look at the end of the sequence and determine the longest non-decreasing sequence.
+         * Say, start of such a suffix is at index i, then position i-1 is the pivot.
+         * Replace the pivot with the largest number in sequence less than pivot.
+         * Invert the suffix to ensure that the change in sequence is minimized.
+         */
+        int i = sequence.length - 1;
+        while (i >= 0 && sequence[i-1] <= sequence[i]) i--;
+        if (i == 0) return sequence;
+        int j = sequence.length - 1;
+        while (sequence[j] >= sequence[i-1]) j--;
+        int temp = sequence[j];
+        sequence[j] = sequence[i-1];
+        sequence[i-1] = temp;
+        j = sequence.length - 1;
+        while (j > i) {
+            temp = sequence[i];
+            sequence[i++] = sequence[j];
+            sequence[j--] = temp;
+        }
+        return sequence;
     }
 
 }
