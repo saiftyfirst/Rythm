@@ -1,10 +1,11 @@
 package com.saiftyfirst;
 
-import com.saiftyfirst.models.Matrix;
+import com.saiftyfirst.models.matrix.Matrix;
 
 import java.util.Arrays;
 
-public class Rhythm {
+public class
+Rhythm {
 
     public static void TOWER_OF_HANOI(final int numOfDiscs, final char source, final char inter, final char to) {
         if (numOfDiscs == 1) {
@@ -176,6 +177,32 @@ public class Rhythm {
             sequence[j--] = temp;
         }
         return sequence;
+    }
+
+    public static int SET_BIT_COUNT(int number) {
+        /**
+         * 1st key idea: Take a truth table of any length. Notice how subtracting 1 from any value,
+         * toggles all rightmost bits in the number up to and including the first set bit.
+         * Example: 1101 -> 1100, 1000 -> 0111 etc.
+         *
+         * 2nd key idea: Using the knowledge from idea 1, if you do a bitwise AND of n and
+         * n - 1, the rightmost set bit and all after it are unset. This means, you could potentially
+         * do this process upto the number of set bits in the number before the number becomes 0.
+         *
+         * Food for thought: What would change if you were asked to get the number of 0s in a
+         * number given that you are provided with an upper bound for the number.
+         * 1. Think addition of 1.
+         * 2. Think toggle after and including rightmost unset(0) bit.
+         * 3. Think OR ;).
+         * Acknowledgement: Brian Kernighan
+         */
+
+        int count = 0;
+        while (number > 0) {
+            count ++;
+            number &= (number - 1);
+        }
+        return count;
     }
 
 }

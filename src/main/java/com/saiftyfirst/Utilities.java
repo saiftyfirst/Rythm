@@ -1,6 +1,6 @@
 package com.saiftyfirst;
 
-import com.saiftyfirst.models.Matrix;
+import com.saiftyfirst.models.matrix.Matrix;
 
 public class Utilities {
 
