@@ -205,4 +205,35 @@ Rhythm {
         return count;
     }
 
+    public static int ERATOSTHENES_SIEVE(int number) {
+        /**
+         * Tribute to Eratosthenes of Cyrene.
+         *
+         * Starting at 2 (first prime) mark out all multiples.
+         * Increment till next non-marked found which is the next prime and continue till number passed as param.
+         * Hint: If you find an unmarked number, if it was not a prime then by definition, it should have a number
+         *       than itself(not 1) that can divide itself. This is not possible, as we have already marked all multiples of
+         *       all lower numbers.
+         *
+         * Indexes 0 and 1 will always say False but we specifically discount them before return.
+         * Another interesting feature of the algorithm is how we limit the outer loop by sqrt of number and start the
+         * inner loop with square root of the prime. This is because, every composite number has at least one prime
+         * factor that is not greater than it's square root(Intuitive if you think about it a bit).
+         */
+        boolean[] nonPrimes = new boolean[number + 1];
+        int primeCount = 0;
+        for (int i = 2; i*i <= number; i++) {
+            if (!nonPrimes[i]) {
+                for (int j = i*i; j <= number; j+=i) {
+                    nonPrimes[j] = true;
+                }
+            }
+        }
+        for (int i =2; i <= number; i++) {
+            primeCount += !nonPrimes[i] ? 1 : 0;
+        }
+        return primeCount;
+    }
+
+
 }

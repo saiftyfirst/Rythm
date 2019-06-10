@@ -60,4 +60,13 @@ public class RhythmTests {
         assert Rhythm.SET_BIT_COUNT(16) ==  1;
     }
 
+    @Test
+    public void eratosthenesSieveTest() {
+        assert Rhythm.ERATOSTHENES_SIEVE(-1) == 0;
+        assert Rhythm.ERATOSTHENES_SIEVE(1) == 0;
+        assert Rhythm.ERATOSTHENES_SIEVE(20) == 8;
+        assert Rhythm.ERATOSTHENES_SIEVE(1000) == 168;
+        assert Rhythm.ERATOSTHENES_SIEVE(9876) == 1218;
+    }
+
 }
