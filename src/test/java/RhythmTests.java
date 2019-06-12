@@ -69,4 +69,28 @@ public class RhythmTests {
         assert Rhythm.ERATOSTHENES_SIEVE(9876) == 1218;
     }
 
+    @Test
+    public void reverseArrayInplaceTest() {
+        int[] arr1 = {1, 2, 3, 4, 7, 9};
+        int[] arrRev1 = {9, 7, 4, 3, 2, 1};
+        assert Arrays.equals(Rhythm.INPLACE_ARRAY_REVERSION(arr1), arrRev1);
+
+        int[] arr2 = {13, 10, 12, 15, 9, 8};
+        int[] arrRev2 = {8, 9, 15, 12, 10, 13};
+        assert Arrays.equals(Rhythm.INPLACE_ARRAY_REVERSION(arr2), arrRev2);
+
+        int[] arr3 = {2,42, 0, 42, 2};
+        int[] arrRev3 = {2,42, 0, 42, 2};
+        assert Arrays.equals(Rhythm.INPLACE_ARRAY_REVERSION(arr3), arrRev3);
+
+        int[] arr4 = {1};
+        int[] arrRev4 = {1};
+        assert Arrays.equals(Rhythm.INPLACE_ARRAY_REVERSION(arr4), arrRev4);
+
+        int[] arr5 = {3, 3, 4, 7};
+        int[] arrRev5 = {7, 4, 3, 3};
+        assert Arrays.equals(Rhythm.INPLACE_ARRAY_REVERSION(arr5), arrRev5);
+
+    }
+
 }

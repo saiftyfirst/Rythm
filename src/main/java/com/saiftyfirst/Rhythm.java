@@ -235,5 +235,29 @@ Rhythm {
         return primeCount;
     }
 
+    public static int[] INPLACE_ARRAY_REVERSION(int[] array) {
+        /**
+         * Reversing an array without creating a new one.
+         * Two pointers, once each at the start(=i) and end(=j) of array.
+         * While i is at a lower array index than j,
+         * - Switch the values at the two pointed array positions
+         * - Increment pointer i
+         * - Decrement pointer j
+         * return the array
+         * Shout Out: Nikolas Tek
+         */
+        int i = 0;
+        int j = array.length - 1;
+        int temp;
+        while (i < j) {
+            temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+            i++;
+            j--;
+        }
+        return array;
+    }
+
 
 }
