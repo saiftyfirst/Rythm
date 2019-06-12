@@ -90,7 +90,6 @@ public class RhythmTests {
         int[] arr5 = {3, 3, 4, 7};
         int[] arrRev5 = {7, 4, 3, 3};
         assert Arrays.equals(Rhythm.INPLACE_ARRAY_REVERSION(arr5), arrRev5);
-
     }
 
 }

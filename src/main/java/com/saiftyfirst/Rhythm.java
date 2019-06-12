@@ -1,11 +1,12 @@
 package com.saiftyfirst;
 
+import com.saiftyfirst.models.Operator;
 import com.saiftyfirst.models.matrix.Matrix;
 
 import java.util.Arrays;
+import java.util.Stack;
 
-public class
-Rhythm {
+public class Rhythm {
 
     public static void TOWER_OF_HANOI(final int numOfDiscs, final char source, final char inter, final char to) {
         if (numOfDiscs == 1) {
@@ -257,6 +258,20 @@ Rhythm {
             j--;
         }
         return array;
+    }
+
+    public double POSTFIX_EVAL(final char[] expression) {
+        Stack<Double> operandStack = new Stack<>();
+        Operator operator;
+        for (char c : expression) {
+            operator = Operator.getOperatorByCode(c);
+            if (operator != null) {
+                operandStack.push(operator.apply(operandStack.pop(), operandStack.pop()));
+            } else {
+                operandStack.push((double) c);
+            }
+        }
+        return operandStack.pop();
     }
 
 
