@@ -92,4 +92,10 @@ public class RhythmTests {
         assert Arrays.equals(Rhythm.INPLACE_ARRAY_REVERSION(arr5), arrRev5);
     }
 
+    @Test
+    public void postfixEvaluationTest() {
+        String expression = "100 200 + 2 / 5 * 7 +";
+        assert Rhythm.POSTFIX_EVALUATION(expression.toCharArray()) == 757.0;
+    }
+
 }

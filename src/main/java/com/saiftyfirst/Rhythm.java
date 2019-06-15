@@ -260,18 +260,31 @@ public class Rhythm {
         return array;
     }
 
-    public double POSTFIX_EVAL(final char[] expression) {
+    public static double POSTFIX_EVALUATION(final char[] expression) {
+        /**
+         * Key idea is to push operands onto the stack. When an operator is encountered, two operands are popped
+         * from the stack and the result is pushed back. At the end, what is left in the stack is the result.
+         */
         Stack<Double> operandStack = new Stack<>();
+        StringBuilder builder = new StringBuilder();
         Operator operator;
+        double secondOperand;
         for (char c : expression) {
-            operator = Operator.getOperatorByCode(c);
-            if (operator != null) {
-                operandStack.push(operator.apply(operandStack.pop(), operandStack.pop()));
+            if (c != ' ') {
+                builder.append(c);
             } else {
-                operandStack.push((double) c);
+                operator = Operator.getOperatorByCode(builder.toString().charAt(0));
+                if (operator != null) {
+                    secondOperand = operandStack.pop();
+                    operandStack.push(operator.apply(operandStack.pop(), secondOperand));
+                } else {
+                    operandStack.push(Double.valueOf(builder.toString()));
+                }
+                builder.setLength(0);
             }
         }
-        return operandStack.pop();
+        secondOperand = operandStack.pop();
+        return Operator.getOperatorByCode(builder.toString().charAt(0)).apply(operandStack.pop(), secondOperand);
     }
 
 
