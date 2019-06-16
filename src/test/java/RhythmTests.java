@@ -98,4 +98,17 @@ public class RhythmTests {
         assert Rhythm.POSTFIX_EVALUATION(expression.toCharArray()) == 757.0;
     }
 
+    @Test
+    public void mergeSortTest() {
+        Comparable[] result = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+        Comparable[] arr1 = {10, 9, 8, 7, 6, 5, 4, 3, 2 , 1};
+        Rhythm.MERGE_SORT(arr1);
+        assert Arrays.equals(arr1, result);
+
+        Comparable[] arr2 = {7, 9, 2, 4, 3, 1, 10, 5, 8, 6};
+        Rhythm.MERGE_SORT(arr2);
+        assert Arrays.equals(arr2, result);
+    }
+
 }

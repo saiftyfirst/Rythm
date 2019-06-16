@@ -287,5 +287,19 @@ public class Rhythm {
         return Operator.getOperatorByCode(builder.toString().charAt(0)).apply(operandStack.pop(), secondOperand);
     }
 
+    public static void MERGE_SORT(Comparable[] array) {
+        /**
+         * Bottom up merge sort implementation.
+         * Divide the array into sub-arrays with length of incremental power of 2 starting a 2 upto half of original
+         * length. Merge each sub-array.
+         */
+        int len = array.length;
+        Comparable[] aux = new Comparable[len];
+        for (int size = 1; size < len; size += size) {
+            for (int i =0; i < len - size; i += size*2) {
+                Utilities.merge(array, aux, i, i + size -1, Utilities.minimum(i + size*2 - 1, len - 1));
+            }
+        }
+    }
 
 }
