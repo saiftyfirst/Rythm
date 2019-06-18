@@ -302,4 +302,29 @@ public class Rhythm {
         }
     }
 
+    public static int MINIMUM_SWAPS_TO_SORT(int[] arr) {
+        /**
+         * Courtesy: https://www.hackerrank.com/challenges/minimum-swaps-2/problem
+         *
+         * The key hint in the problem is that the array always has consecutive integers starting
+         * at 1. This allows us to loop through the array, swapping the item at the current index
+         * with the item in the correct index until the current index holds the item it is supposed
+         * to.
+         *
+         */
+        int minimumSwaps = 0;
+        int temp;
+        for (int i=0; i<arr.length; i++) {
+            if (arr[i]-1 == i) continue;
+            while (arr[i]-1 != i) {
+                temp = arr[i];
+                arr[i] = arr[temp-1];
+                arr[temp-1] = temp;
+                minimumSwaps++;
+            }
+
+        }
+        return minimumSwaps;
+    }
+
 }

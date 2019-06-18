@@ -111,4 +111,15 @@ public class RhythmTests {
         assert Arrays.equals(arr2, result);
     }
 
+    @Test
+    public void minSwapSortTest() {
+        int[] arr1 = {4, 3, 1, 2};
+        assert Rhythm.MINIMUM_SWAPS_TO_SORT(arr1) == 3;
+
+        int[] arr2 = {1, 3, 5, 2, 4, 6, 7};
+        assert Rhythm.MINIMUM_SWAPS_TO_SORT(arr2) == 3;
+
+        // Remainder of the test including large input test on HackerRank.
+    }
+
 }
