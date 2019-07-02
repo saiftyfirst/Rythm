@@ -4,6 +4,9 @@ import com.saiftyfirst.models.Operator;
 import com.saiftyfirst.models.matrix.Matrix;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Stack;
 
 public class Rhythm {
@@ -325,6 +328,35 @@ public class Rhythm {
 
         }
         return minimumSwaps;
+    }
+
+    /**
+     * Courtesy: https://www.hackerrank.com/challenges/sherlock-and-anagrams/problem
+     */
+    public static int sherlockAndAnagrams(String s) {
+        int len = s.length();
+
+        int substringCount;
+        String currentSubstring;
+        char[] substringArray;
+        Map<String, Integer> subStrMap = new HashMap<>();
+
+        int anagramCount = 0;
+
+        for (int i =0; i<len; i++) {
+            for (int j=i+1; j<=len; j++) {
+                substringArray = s.substring(i, j).toCharArray();
+                Arrays.sort(substringArray);
+                currentSubstring = String.valueOf(substringArray);
+                substringCount = subStrMap.getOrDefault(currentSubstring, 0);
+                if (substringCount > 0) {
+                    anagramCount += substringCount;
+                }
+                subStrMap.put(currentSubstring, ++substringCount);
+
+            }
+        }
+        return anagramCount;
     }
 
 }

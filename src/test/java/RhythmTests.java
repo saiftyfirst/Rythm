@@ -122,4 +122,11 @@ public class RhythmTests {
         // Remainder of the test including large input test on HackerRank.
     }
 
+    @Test
+    public void anagramTest() {
+        Rhythm.sherlockAndAnagrams("cdcd");
+    }
+
+
+
 }
