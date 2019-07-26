@@ -1,13 +1,10 @@
 package com.saiftyfirst;
 
+import com.saiftyfirst.models.graphs.AbstractGraph;
 import com.saiftyfirst.models.Operator;
-import com.saiftyfirst.models.matrix.Matrix;
+import com.saiftyfirst.models.martices.Matrix;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 public class Rhythm {
 
@@ -333,7 +330,7 @@ public class Rhythm {
     /**
      * Courtesy: https://www.hackerrank.com/challenges/sherlock-and-anagrams/problem
      */
-    public static int sherlockAndAnagrams(String s) {
+    public static int SHERLOCK_AND_ANAGRAMS(final String s) {
         int len = s.length();
 
         int substringCount;
@@ -357,6 +354,31 @@ public class Rhythm {
             }
         }
         return anagramCount;
+    }
+
+    public static String DFS(final AbstractGraph graph, final int start, final String[] labels) {
+        final int numberOfNodes = graph.getNumberOfNodes();
+        final int[][] edges = graph.getEdges();
+        boolean visited[] = new boolean[numberOfNodes];
+        Queue<Integer> searchQueue = new LinkedList<>();
+        StringBuilder resultBuilder = new StringBuilder();
+
+        visited[start] = true;
+        searchQueue.add(start);
+        resultBuilder.append(labels[start]);
+
+        int current;
+        while (!searchQueue.isEmpty()) {
+            current = searchQueue.remove();
+            for (int adj =0; adj < numberOfNodes; adj++) {
+                if (edges[current][adj] == 1 && !visited[adj]) {
+                    visited[adj] = true;
+                    searchQueue.add(adj);
+                    resultBuilder.append(labels[adj]);
+                }
+            }
+        }
+        return resultBuilder.toString();
     }
 
 }

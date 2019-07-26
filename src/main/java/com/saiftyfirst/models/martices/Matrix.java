@@ -1,4 +1,4 @@
-package com.saiftyfirst.models.matrix;
+package com.saiftyfirst.models.martices;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
