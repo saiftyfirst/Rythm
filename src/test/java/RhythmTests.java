@@ -161,5 +161,35 @@ public class RhythmTests {
     }
 
 
+    @Test
+    public void dfsTest() {
+        UndirectedGraph undirectedGraph = new UndirectedGraph(10);
+        undirectedGraph.addEdge(0,1);
+        undirectedGraph.addEdge(0,2);
+        undirectedGraph.addEdge(1,2);
+        undirectedGraph.addEdge(1,4);
+        undirectedGraph.addEdge(1,9);
+        undirectedGraph.addEdge(2,3);
+        undirectedGraph.addEdge(2,9);
+        undirectedGraph.addEdge(3,8);
+        undirectedGraph.addEdge(4,8);
+        undirectedGraph.addEdge(4,9);
+        undirectedGraph.addEdge(5,6);
+
+        final String[] labels = new String[] {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
+
+        String result = Rhythm.DFS(undirectedGraph, 2, labels);
+        assert result.equals("CABEIDJ");
+
+        result = Rhythm.DFS(undirectedGraph, 4, labels);
+        assert result.equals("EBACDIJ");
+
+        result = Rhythm.DFS(undirectedGraph, 5, labels);
+        assert result.equals("FG");
+
+        result = Rhythm.DFS(undirectedGraph, 7, labels);
+        assert result.equals("H");
+
+    }
 
 }

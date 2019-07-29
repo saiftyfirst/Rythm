@@ -396,7 +396,35 @@ public class Rhythm {
      * @return
      */
     public static String DFS(final AbstractGraph graph, final int start, final String[] labels) {
-        return null;
+        final int numberOfNodes = graph.getNumberOfNodes();
+        final int[][] edges = graph.getEdges();
+        boolean visited[] = new boolean[numberOfNodes];
+        Stack<Integer> searchStack = new Stack<>();
+        StringBuilder resultBuilder = new StringBuilder();
+
+        visited[start] = true;
+        searchStack.push(start);
+        resultBuilder.append(labels[start]);
+
+        int current;
+        boolean hasChildren;
+        while (!searchStack.isEmpty()) {
+            hasChildren = false;
+            current = searchStack.peek();
+            for (int adj =0; adj < numberOfNodes; adj++) {
+                if (edges[current][adj] == 1 && !visited[adj]) {
+                    visited[adj] = true;
+                    searchStack.push(adj);
+                    resultBuilder.append(labels[adj]);
+                    hasChildren = true;
+                    break;
+                }
+            }
+            if (!hasChildren) {
+                searchStack.pop();
+            }
+        }
+        return resultBuilder.toString();
     }
 
 }
