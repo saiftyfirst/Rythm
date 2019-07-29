@@ -356,7 +356,14 @@ public class Rhythm {
         return anagramCount;
     }
 
-    public static String DFS(final AbstractGraph graph, final int start, final String[] labels) {
+    /**
+     * Implementation of breadth-first search
+     * @param graph
+     * @param start
+     * @param labels
+     * @return
+     */
+    public static String BFS(final AbstractGraph graph, final int start, final String[] labels) {
         final int numberOfNodes = graph.getNumberOfNodes();
         final int[][] edges = graph.getEdges();
         boolean visited[] = new boolean[numberOfNodes];
@@ -379,6 +386,17 @@ public class Rhythm {
             }
         }
         return resultBuilder.toString();
+    }
+
+    /**
+     * Implementation of depth-first search
+     * @param graph
+     * @param start
+     * @param labels
+     * @return
+     */
+    public static String DFS(final AbstractGraph graph, final int start, final String[] labels) {
+        return null;
     }
 
 }

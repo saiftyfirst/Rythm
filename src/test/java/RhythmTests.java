@@ -130,7 +130,7 @@ public class RhythmTests {
     }
 
     @Test
-    public void dfsTest() {
+    public void bfsTest() {
         UndirectedGraph undirectedGraph = new UndirectedGraph(10);
         undirectedGraph.addEdge(0,1);
         undirectedGraph.addEdge(0,2);
@@ -146,16 +146,16 @@ public class RhythmTests {
 
         final String[] labels = new String[] {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
 
-        String result = Rhythm.DFS(undirectedGraph, 2, labels);
+        String result = Rhythm.BFS(undirectedGraph, 2, labels);
         assert result.equals("CABDJEI");
 
-        result = Rhythm.DFS(undirectedGraph, 4, labels);
+        result = Rhythm.BFS(undirectedGraph, 4, labels);
         assert result.equals("EBIJACD");
 
-        result = Rhythm.DFS(undirectedGraph, 5, labels);
+        result = Rhythm.BFS(undirectedGraph, 5, labels);
         assert result.equals("FG");
 
-        result = Rhythm.DFS(undirectedGraph, 7, labels);
+        result = Rhythm.BFS(undirectedGraph, 7, labels);
         assert result.equals("H");
 
     }
