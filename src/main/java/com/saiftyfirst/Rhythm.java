@@ -454,4 +454,10 @@ public class Rhythm {
         return -1;
     }
 
+    /** Karatsuba Multiplication.
+     *  Courtesy: https://medium.com/100-days-of-algorithms/day-10-karatsuba-multiplication-a0535cc468e6
+     */
+    public static int KARABATSU_MULTIPLY(int a, int b) {
+        return -1;
+    }
 }
