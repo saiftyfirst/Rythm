@@ -192,4 +192,19 @@ public class RhythmTests {
 
     }
 
+    @Test
+    public void binarySearchTest() {
+        Comparable[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+        int result = Rhythm.BINARY_SEARCH(arr, 8);
+        assert result == 7;
+
+        result = Rhythm.BINARY_SEARCH(arr, 1);
+        assert result == 0;
+
+        result = Rhythm.BINARY_SEARCH(arr, 20);
+        assert result == -1;
+
+    }
+
 }

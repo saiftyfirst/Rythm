@@ -427,4 +427,31 @@ public class Rhythm {
         return resultBuilder.toString();
     }
 
+    /**
+     * Implementation of Binary Search.
+     * Pointers at the left and right ends. Compare middle with the item and cut array in half in case of no match.
+     * Input array must be sorted.
+     * @param arr
+     * @param item
+     * @return
+     */
+
+    public static int BINARY_SEARCH(final Comparable[] arr, final Comparable item) {
+        int head = 0;
+        int tail = arr.length - 1;
+
+        int middle;
+        while (head <= tail) {
+            middle = head + (tail - head) / 2;
+            if (arr[middle].compareTo(item) < 0) {
+                head = middle + 1;
+            } else if (arr[middle] .compareTo(item) > 0) {
+                tail = middle - 1;
+            } else {
+                return middle;
+            }
+        }
+        return -1;
+    }
+
 }
