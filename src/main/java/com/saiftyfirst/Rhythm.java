@@ -454,19 +454,27 @@ public class Rhythm {
     }
 
     /**
-     *
-     * @param f
-     * @param s
+     * The Karatsuba algo is a cheaper multiplication technique (0(nlog3)).
+     * Courtesy: https://medium.com/100-days-of-algorithms/day-10-karatsuba-multiplication-a0535cc468e6
+     * Key idea:
+     *      Divide the numbers into two halves. (n being length)
+     *      Multiply top halves and bottom halves. a = (Xh*Yh), c = (Xl*Yl)
+     *      Multiply sums b = (Xh+Xl)*(Yh+Yl) - a - c
+     *      Return a * 10^n + b * 10^n/2 + c
+     * @param f: first number
+     * @param s: second number
      * @return
      */
     public static int KARATSUBA(final int f, final int s) {
         if (f <= 9 && s <= 9) {
             return f * s;
         }
+
         final String stringF = String.valueOf(f);
         final String stringS = String.valueOf(s);
         int maxLen = Utilities.maximum(stringF.length(), stringS.length());
         int topCeil = (int) Math.ceil(maxLen / 2.0);
+
         int topF = f / (int) Math.pow(10, topCeil);
         int topS = s / (int) Math.pow(10, topCeil);
         int bottomF = f % (int) Math.pow(10, topCeil);
@@ -475,6 +483,7 @@ public class Rhythm {
         int resTop = KARATSUBA(topF, topS);
         int resBottom = KARATSUBA(bottomF, bottomS);
         int resMid = KARATSUBA(topF + bottomF, topS + bottomS) - resTop - resBottom;
+
         return
             resTop * (int) Math.pow(10, topCeil * 2) +
             resMid * (int) Math.pow(10, topCeil) +

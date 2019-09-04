@@ -210,6 +210,13 @@ public class RhythmTests {
     @Test
     public void karatsubaTest() {
         assert Rhythm.KARATSUBA(2,2) == 4;
+
+        assert Rhythm.KARATSUBA(1098, 1080) == 1185840;
+
+        assert Rhythm.KARATSUBA(1099, 22) == 24178;
+
+        assert Rhythm.KARATSUBA(2345, 92111) == 216000295;
+
     }
 
 }
