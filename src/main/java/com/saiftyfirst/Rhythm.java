@@ -139,8 +139,8 @@ public class Rhythm {
          * Invert the suffix to ensure that the change in sequence is minimized.
          */
         int i = sequence.length - 1;
-        while (i >= 0 && sequence[i-1] >= sequence[i]) i--;
-        if (i == 0) return sequence;
+        while (i > 0 && sequence[i-1] >= sequence[i]) i--;
+        if (i == 1) return sequence;
         int j = sequence.length - 1;
         while (sequence[j] <= sequence[i-1]) j--;
         int temp = sequence[j];
@@ -164,8 +164,8 @@ public class Rhythm {
          * Invert the suffix to ensure that the change in sequence is minimized.
          */
         int i = sequence.length - 1;
-        while (i >= 0 && sequence[i-1] <= sequence[i]) i--;
-        if (i == 0) return sequence;
+        while (i > 0 && sequence[i-1] <= sequence[i]) i--;
+        if (i == 1) return sequence;
         int j = sequence.length - 1;
         while (sequence[j] >= sequence[i-1]) j--;
         int temp = sequence[j];
@@ -435,7 +435,6 @@ public class Rhythm {
      * @param item
      * @return
      */
-
     public static int BINARY_SEARCH(final Comparable[] arr, final Comparable item) {
         int head = 0;
         int tail = arr.length - 1;
@@ -452,6 +451,34 @@ public class Rhythm {
             }
         }
         return -1;
+    }
+
+    /**
+     *
+     * @param f
+     * @param s
+     * @return
+     */
+    public static int KARATSUBA(final int f, final int s) {
+        if (f <= 9 && s <= 9) {
+            return f * s;
+        }
+        final String stringF = String.valueOf(f);
+        final String stringS = String.valueOf(s);
+        int maxLen = Utilities.maximum(stringF.length(), stringS.length());
+        int topCeil = (int) Math.ceil(maxLen / 2.0);
+        int topF = f / (int) Math.pow(10, topCeil);
+        int topS = s / (int) Math.pow(10, topCeil);
+        int bottomF = f % (int) Math.pow(10, topCeil);
+        int bottomS = s % (int) Math.pow(10, topCeil);
+
+        int resTop = KARATSUBA(topF, topS);
+        int resBottom = KARATSUBA(bottomF, bottomS);
+        int resMid = KARATSUBA(topF + bottomF, topS + bottomS) - resTop - resBottom;
+        return
+            resTop * (int) Math.pow(10, topCeil * 2) +
+            resMid * (int) Math.pow(10, topCeil) +
+            resBottom;
     }
 
 }

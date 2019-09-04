@@ -207,4 +207,9 @@ public class RhythmTests {
 
     }
 
+    @Test
+    public void karatsubaTest() {
+        assert Rhythm.KARATSUBA(2,2) == 4;
+    }
+
 }
