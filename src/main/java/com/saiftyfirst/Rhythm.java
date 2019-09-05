@@ -490,4 +490,23 @@ public class Rhythm {
             resBottom;
     }
 
+    /**
+     * McCarthy 91: Used for formal verification in Computer Science
+     * Tribute: John McCarthy
+     * M(n) = n - 10, if n > 100
+     *      = M(M(n+11)) if n <= 100
+     */
+    public static int MC_91(int value) {
+        int k = 1;
+        while (k > 0) {
+            if (value > 100) {
+                value -= 10;
+                k--;
+            } else {
+                value += 11;
+                k++;
+            }
+        }
+        return value;
+    }
 }

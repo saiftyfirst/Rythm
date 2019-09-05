@@ -219,4 +219,19 @@ public class RhythmTests {
 
     }
 
+    @Test
+    public void mc91Test() {
+
+        assert Rhythm.MC_91(-2) == 91;
+
+        assert Rhythm.MC_91(0) == 91;
+
+        assert Rhythm.MC_91(64) == 91;
+
+        assert Rhythm.MC_91(102) == 92;
+
+        assert Rhythm.MC_91(999) == 989;
+
+    }
+
 }
