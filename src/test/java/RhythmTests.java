@@ -234,4 +234,16 @@ public class RhythmTests {
 
     }
 
+    @Test
+    public void determinantTest() {
+        int[][] values = {
+            { 1, 99, 45, 78 },
+            { 3, 67, 67, 34 },
+            { 13, 19, 5, 11 },
+            { 21, 7, 3, 19}
+        };
+        Matrix matrix = new Matrix(values);
+        assert matrix.determinant() == 1074148;
+    }
+
 }
