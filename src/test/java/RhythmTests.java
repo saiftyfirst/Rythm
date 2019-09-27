@@ -2,6 +2,7 @@ import com.saiftyfirst.Rhythm;
 import com.saiftyfirst.models.graphs.Graph;
 import com.saiftyfirst.models.graphs.UndirectedGraph;
 import com.saiftyfirst.models.martices.Matrix;
+import java.io.File;
 import java.util.Arrays;
 import lombok.Data;
 import org.junit.Test;
@@ -244,6 +245,17 @@ public class RhythmTests {
         };
         Matrix matrix = new Matrix(values);
         assert matrix.determinant() == 1074148;
+    }
+
+    @Test
+    public void huffmanTest() {
+        try {
+            String filePath = new File(".").getCanonicalPath().concat("/src/test/resources/HuffmanInput.txt");
+            Rhythm.HUFFMAN_COMPRESSION(filePath);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }
 
 }

@@ -2,17 +2,7 @@ package com.saiftyfirst;
 
 import com.saiftyfirst.models.martices.Matrix;
 
-public class Utilities {
-
-    static int maximum(int a, int b) {
-        if (a >= b) return a;
-        else return b;
-    }
-
-    static int minimum(int a, int b) {
-        if (a <= b) return a;
-        else return b;
-    }
+class Utilities {
 
     static boolean areMulipliable(Matrix[] matrices) {
         for(int i = 0; i < matrices.length - 1; i++) {
@@ -26,9 +16,7 @@ public class Utilities {
     static void merge(final Comparable[] arr, Comparable[] aux, int lo, int mid, int hi) {
         int i = lo;
         int j = mid + 1;
-        for (int s=lo; s<=hi; s++) {
-            aux[s] = arr[s];
-        }
+        if (hi + 1 - lo >= 0) System.arraycopy(arr, lo, aux, lo, hi + 1 - lo);
         for (int s=lo; s<=hi; s++) {
             if (i > mid) {
                 arr[s] = aux[j++];

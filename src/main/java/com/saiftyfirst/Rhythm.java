@@ -4,6 +4,8 @@ import com.saiftyfirst.models.graphs.AbstractGraph;
 import com.saiftyfirst.models.Operator;
 import com.saiftyfirst.models.martices.Matrix;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.*;
 
 public class Rhythm {
@@ -43,7 +45,7 @@ public class Rhythm {
                     sequenceGrid[i][j] = 0;
                 } else if (charArrayStr1[i-1] == charArrayStr2[j-1]) {
                     sequenceGrid[i][j] = sequenceGrid[i-1][j-1] + 1;
-                    ret = Utilities.maximum(ret, sequenceGrid[i][j]);
+                    ret = Math.max(ret, sequenceGrid[i][j]);
                 } else {
                     sequenceGrid[i][j] = 0;
                 }
@@ -67,7 +69,7 @@ public class Rhythm {
         }
         int ret = moduloArray[0] > 0 ? 1 : 0;
         for (int i = 1; i <= k/2 ; i++) {
-            ret += Utilities.maximum(moduloArray[i], moduloArray[k-i]);
+            ret += Math.max(moduloArray[i], moduloArray[k-i]);
         }
         return ret;
     }
@@ -297,7 +299,7 @@ public class Rhythm {
         Comparable[] aux = new Comparable[len];
         for (int size = 1; size < len; size += size) {
             for (int i =0; i < len - size; i += size*2) {
-                Utilities.merge(array, aux, i, i + size -1, Utilities.minimum(i + size*2 - 1, len - 1));
+                Utilities.merge(array, aux, i, i + size -1, Math.min(i + size*2 - 1, len - 1));
             }
         }
     }
@@ -472,7 +474,7 @@ public class Rhythm {
 
         final String stringF = String.valueOf(f);
         final String stringS = String.valueOf(s);
-        int maxLen = Utilities.maximum(stringF.length(), stringS.length());
+        int maxLen = Math.max(stringF.length(), stringS.length());
         int topCeil = (int) Math.ceil(maxLen / 2.0);
 
         int topF = f / (int) Math.pow(10, topCeil);
@@ -508,6 +510,16 @@ public class Rhythm {
             }
         }
         return value;
+    }
+
+    public static void HUFFMAN_COMPRESSION(final String absolutePath) throws Exception {
+        final BufferedReader bufferedReader =
+            new BufferedReader(new FileReader(absolutePath));
+
+        char[] buffer = new char[1024];
+        while (bufferedReader.read(buffer) != -1) {
+            System.out.println(buffer);
+        }
     }
 
 }
