@@ -1,5 +1,6 @@
 package models.heaps;
 
+import com.saiftyfirst.models.heaps.MaxHeap;
 import com.saiftyfirst.models.heaps.MinHeap;
 import org.junit.Test;
 
@@ -49,4 +50,50 @@ public class HeapTests {
         assert minHeap.size() == 0;
 
     }
+
+    @Test
+    public void MaxHeapTest() {
+        MaxHeap<Integer> maxHeap = new MaxHeap<>();
+
+        maxHeap.insert(5);
+        assert maxHeap.size() == 1;
+        assert maxHeap.peek() == 5;
+
+        maxHeap.insert(3);
+        assert maxHeap.size() == 2;
+        assert maxHeap.peek() == 5;
+
+        maxHeap.insert(4);
+        assert maxHeap.size() == 3;
+        assert maxHeap.peek() == 5;
+
+        maxHeap.insert(7);
+        assert maxHeap.size() == 4;
+        assert maxHeap.peek() == 7;
+
+        maxHeap.insert(6);
+        assert maxHeap.size() == 5;
+        assert maxHeap.peek() == 7;
+
+        assert maxHeap.pop() == 7;
+        assert maxHeap.size() == 4;
+        assert maxHeap.peek() == 6;
+
+        assert maxHeap.pop() == 6;
+        assert maxHeap.size() == 3;
+        assert maxHeap.peek() == 5;
+
+        assert maxHeap.pop() == 5;
+        assert maxHeap.size() == 2;
+        assert maxHeap.peek() == 4;
+
+        assert maxHeap.pop() == 4;
+        assert maxHeap.size() == 1;
+        assert maxHeap.peek() == 3;
+
+        assert maxHeap.pop() == 3;
+        assert maxHeap.size() == 0;
+
+    }
+
 }
