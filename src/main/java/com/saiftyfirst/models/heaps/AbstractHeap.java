@@ -50,8 +50,10 @@ public abstract class AbstractHeap<T> implements Heap<T> {
         int childIdx;
         int idx = 0;
         while (this.hasLeftChild(idx)) {
-            childIdx = this.comparator.apply(this.getRightChild(idx), this.getLeftChild(idx)) ?
-                    this.getRightChildIndex(idx) : this.getLeftChildIndex(idx);
+            childIdx = this.hasRightChild(idx) ?
+                    (this.comparator.apply(this.getRightChild(idx), this.getLeftChild(idx)) ?
+                    this.getRightChildIndex(idx) : this.getLeftChildIndex(idx)) :
+                    this.getLeftChildIndex(idx);
             if (this.comparator.apply(this.heap.get(childIdx), this.heap.get(idx))) {
                 this.swap(idx, childIdx);
                 idx = childIdx;
@@ -72,6 +74,7 @@ public abstract class AbstractHeap<T> implements Heap<T> {
         if (this.heap.size() == 0) throw new IllegalStateException();
         T item =  this.heap.get(0);
         this.heap.set(0, this.heap.get(this.heap.size() - 1));
+        this.heap.remove(this.heap.size() - 1);
         this.sink();
         return item;
     }
@@ -80,6 +83,11 @@ public abstract class AbstractHeap<T> implements Heap<T> {
     public T peek() {
         if (this.heap.size() == 0) throw new IllegalStateException();
         return this.heap.get(0);
+    }
+
+    @Override
+    public int size() {
+        return this.heap.size();
     }
 
     @Override
