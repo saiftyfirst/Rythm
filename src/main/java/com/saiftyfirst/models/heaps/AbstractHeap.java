@@ -3,7 +3,7 @@ package com.saiftyfirst.models.heaps;
 import java.util.Arrays;
 import java.util.function.BiFunction;
 
-public abstract class AbstractHeap implements Heap {
+public class AbstractHeap implements Heap {
 
     private int capacity = 10;
     private int size = 0;
@@ -40,7 +40,7 @@ public abstract class AbstractHeap implements Heap {
         }
     }
 
-    private void swim(final int index) {
+    private void rise(final int index) {
 
     }
 
@@ -48,6 +48,23 @@ public abstract class AbstractHeap implements Heap {
 
     }
 
+    @Override
+    public void insert(int item) {
+        this.checkAndExtend();
+        this.heap[this.size] = item;
+        this.rise(this.size++);
+    }
 
+    @Override
+    public void pop() {
+        this.heap[0] = this.heap[size - 1];
+        this.sink(0);
+    }
+
+    @Override
+    public int peek() {
+        if (size == 0) throw new IllegalStateException();
+        return this.heap[0];
+    }
 
 }
