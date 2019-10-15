@@ -1,9 +1,13 @@
 import com.saiftyfirst.Rhythm;
 import com.saiftyfirst.models.graphs.Graph;
 import com.saiftyfirst.models.graphs.UndirectedGraph;
+import com.saiftyfirst.models.heaps.AbstractHeap;
+import com.saiftyfirst.models.heaps.Heap;
 import com.saiftyfirst.models.martices.Matrix;
 import java.io.File;
 import java.util.Arrays;
+import java.util.function.BiFunction;
+
 import lombok.Data;
 import org.junit.Test;
 

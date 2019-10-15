@@ -1,9 +1,10 @@
 package com.saiftyfirst.models.heaps;
 
-public interface Heap {
+public interface Heap<T> {
 
-    void insert(int item);
-    void pop();
-    int peek();
+    void insert(T item);
+    T pop();
+    T peek();
+    void printHeap();
 
 }

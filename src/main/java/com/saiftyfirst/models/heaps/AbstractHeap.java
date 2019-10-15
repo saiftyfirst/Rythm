@@ -1,17 +1,16 @@
 package com.saiftyfirst.models.heaps;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.BiFunction;
 
-public class AbstractHeap implements Heap {
+public abstract class AbstractHeap<T> implements Heap<T> {
 
-    private int capacity = 10;
-    private int size = 0;
-    private int[] heap;
-    private BiFunction<Integer, Integer, Boolean> comparator;
+    private ArrayList<T> heap;
+    private final BiFunction<T, T, Boolean> comparator;
 
-    AbstractHeap(final BiFunction<Integer, Integer, Boolean> comparator) {
-        this.heap = new int[this.capacity];
+    AbstractHeap(final BiFunction<T, T, Boolean> comparator) {
+        this.heap = new ArrayList<>();
         this.comparator = comparator;
     }
 
@@ -20,51 +19,71 @@ public class AbstractHeap implements Heap {
     private int getRightChildIndex(final int idx) { return idx * 2 + 2; }
 
     private boolean hasParent(final int idx) { return getParentIndex(idx) >= 0; }
-    private boolean hasLeftChild(final int idx) { return getLeftChildIndex(idx) < this.size; }
-    private boolean hasRightChild(final int idx) { return getRightChildIndex(idx) < this.size; }
+    private boolean hasLeftChild(final int idx) { return getLeftChildIndex(idx) < this.heap.size(); }
+    private boolean hasRightChild(final int idx) { return getRightChildIndex(idx) < this.heap.size(); }
 
-    private int getParent(final int idx) { return this.heap[getParentIndex(idx)]; }
-    private int getLeftChild(final int idx) { return this.heap[getLeftChildIndex(idx)]; }
-    private int getRightChild(final int idx) { return this.heap[getRightChildIndex(idx)]; }
+    private T getParent(final int idx) { return this.heap.get(getParentIndex(idx)); }
+    private T getLeftChild(final int idx) { return this.heap.get(getLeftChildIndex(idx)); }
+    private T getRightChild(final int idx) { return this.heap.get(getRightChildIndex(idx)); }
 
     private void swap(final int idxUno, final int idxDos) {
-        int temp = this.heap[idxUno];
-        this.heap[idxUno] = this.heap[idxDos];
-        this.heap[idxDos] = temp;
+        T temp = this.heap.get(idxUno);
+        this.heap.set(idxUno, this.heap.get(idxDos));
+        this.heap.set(idxDos, temp);
     }
 
-    private void checkAndExtend() {
-        if (this.size == this.capacity) {
-            this.heap = Arrays.copyOf(this.heap, this.capacity * 2);
-            this.capacity *= 2;
+    private void rise() {
+        int parentIdx;
+        int idx = this.heap.size() - 1;
+        while (this.hasParent(idx)) {
+            parentIdx = getParentIndex(idx);
+            if (this.comparator.apply(this.heap.get(idx), this.heap.get(parentIdx))) {
+                swap(idx, parentIdx);
+                idx = parentIdx;
+            } else {
+                break;
+            }
         }
     }
 
-    private void rise(final int index) {
-
-    }
-
-    private void sink(final int index) {
-
-    }
-
-    @Override
-    public void insert(int item) {
-        this.checkAndExtend();
-        this.heap[this.size] = item;
-        this.rise(this.size++);
-    }
-
-    @Override
-    public void pop() {
-        this.heap[0] = this.heap[size - 1];
-        this.sink(0);
+    private void sink() {
+        int childIdx;
+        int idx = 0;
+        while (this.hasLeftChild(idx)) {
+            childIdx = this.comparator.apply(this.getRightChild(idx), this.getLeftChild(idx)) ?
+                    this.getRightChildIndex(idx) : this.getLeftChildIndex(idx);
+            if (this.comparator.apply(this.heap.get(childIdx), this.heap.get(idx))) {
+                this.swap(idx, childIdx);
+                idx = childIdx;
+            } else {
+                break;
+            }
+        }
     }
 
     @Override
-    public int peek() {
-        if (size == 0) throw new IllegalStateException();
-        return this.heap[0];
+    public void insert(T item) {
+        this.heap.add(item);
+        this.rise();
     }
 
+    @Override
+    public T pop() {
+        if (this.heap.size() == 0) throw new IllegalStateException();
+        T item =  this.heap.get(0);
+        this.heap.set(0, this.heap.get(this.heap.size() - 1));
+        this.sink();
+        return item;
+    }
+
+    @Override
+    public T peek() {
+        if (this.heap.size() == 0) throw new IllegalStateException();
+        return this.heap.get(0);
+    }
+
+    @Override
+    public void printHeap() {
+        System.out.println(this.heap.toString());
+    }
 }
